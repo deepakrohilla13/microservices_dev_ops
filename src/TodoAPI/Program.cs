@@ -20,6 +20,8 @@ namespace TodoAPI
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                //.UseKestrel()
+                .UseUrls("http://0.0.0.0:5000")
                 .Build();
     }
 }

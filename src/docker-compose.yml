@@ -8,3 +8,13 @@ services:
         image: test/todo:latest
         ports: 
             - "80:80"
+    u10first:
+        build:
+            context: ./ubuntu10
+            dockerfile: Dockerfile
+        image: test/u10:latest
+    u10second:
+        build:
+            context: ./ubuntu10
+            dockerfile: Dockerfile
+        image: test/u10:latest

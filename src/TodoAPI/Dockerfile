@@ -1,8 +1,21 @@
-from microsoft/dotnet:latest
-copy . /app
-workdir /app
-run ["dotnet", "restore"]
-run ["dotnet", "build"]
-expose 5000/tcp
-entrypoint ["dotnet", "run", "--server.urls", "http://0.0.0.0:5000"]
+#Build stage
+FROM microsoft/aspnetcore-build:2 as build-new
+
+WORKDIR /api
+
+COPY . .
+
+RUN dotnet restore
+
+RUN dotnet build -o /publish
+
+#expose 5000/tcp
+
+from microsoft/aspnetcore:2 
+
+WORKDIR /publish
+
+COPY --from=build-new /publish .
+
+ENTRYPOINT ["dotnet", "TodoAPI.dll"]
 

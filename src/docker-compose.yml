@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+    api-service:
+        build: 
+            context: ./TodoAPI
+            dockerfile: Dockerfile
+        image: test/todo:latest
+        ports: 
+            - "80:80"

@@ -21,7 +21,7 @@ namespace TodoAPI
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 //.UseKestrel()
-                .UseUrls("http://0.0.0.0:80")
+                .UseUrls("http://0.0.0.0:9898")
                 .Build();
     }
 }

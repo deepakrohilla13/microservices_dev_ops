@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
+using TodoApi;
 
 namespace TodoAPI
 {
@@ -26,7 +27,19 @@ namespace TodoAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TodoContext>(opt => opt.UseInMemoryDatabase("TodoList"));
+            services.AddCors(options => { options.AddPolicy("CorsPolicy", 
+                                      builder => builder.AllowAnyOrigin() 
+                                                        .AllowAnyMethod() 
+                                                        .AllowAnyHeader() 
+                                                        .AllowCredentials()); 
+                                  }); 
             services.AddMvc();
+            services.Configure<Settings>(options =>
+            {
+                options.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                options.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
+            services.AddTransient<INoteRepository, NoteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +49,8 @@ namespace TodoAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("CorsPolicy"); 
 
             app.UseMvc();
         }

@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata: 
-  name: mongoclientservice
+  name: mongoservice
   labels: 
-    name: mongoclientservice
+    name: mongoservice
 spec: 
   type: NodePort
   ports:
     # the port that this service should serve on
-    - port: 3000
+    - port: 27017
   # label keys and values that must match in order to receive traffic for this service
   selector: 
-    app: mongoClient
+    app: mongo

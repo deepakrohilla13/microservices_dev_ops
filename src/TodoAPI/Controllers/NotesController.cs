@@ -5,12 +5,17 @@ using Newtonsoft.Json;
 using TodoApi;
 using TodoApi.Models;
 
-namespace TodoAPI.Controllers
+namespace TodoAPI.ControllersP
 {
-    [Route("api/[controller]")]
+    [Route("api/Notes")]
     public class NotesController : Controller
     {
         private readonly INoteRepository _noteRepository;
+/*
+        public NotesController()
+        {
+            
+        }*/
 
         public NotesController(INoteRepository noteRepository)
         {

@@ -8,30 +8,30 @@ using System.Net;
 
 namespace TodoAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/System")]
     public class SystemController : Controller
     {
         private readonly INoteRepository _noteRepository;
-
+        
         public SystemController(INoteRepository noteRepository)
         {
             _noteRepository = noteRepository;
         }
 
-        // Call an initialization - api/system/init
         [HttpGet("{setting}")]
         public string Get(string setting)
         {
-            var hostname = "hostname not found";
-            var machineIP = "Ip not found";
+            var hostname = string.Empty;
+            var machineIP = string.Empty;
 
-            if(string.IsNullOrEmpty(Dns.GetHostName()))
+            if(!string.IsNullOrEmpty(Dns.GetHostName()))
             {
+                machineIP = System.Environment.NewLine;
                 hostname = Dns.GetHostName();
-                var address = Dns.GetHostEntry(hostname);//.AddressList[0].ToString()
+                var address = Dns.GetHostEntry(hostname);
                 if(address != null && address.AddressList!=null && address.AddressList.Length>=0)
                 {
-                    machineIP = address.AddressList[0].ToString();
+                    machineIP = String.Join<System.Net.IPAddress>(System.Environment.NewLine,address.AddressList);
                 }
             }
 

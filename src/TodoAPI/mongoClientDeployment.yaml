@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta2 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: mongoclientdeployment
+  labels:
+    app: mongoClient
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongoClient
+  template:
+    metadata:
+      labels:
+        app: mongoClient
+    spec:
+      containers:
+      - name: mongoclientcontainer
+        image: mongoclient/mongoclient
+        ports:
+        - containerPort: 3000

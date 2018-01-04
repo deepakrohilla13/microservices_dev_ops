@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+    revp:
+      image: dnginx/withconf:latest
+      ports: 
+        - "80:80"
+        - "443:443"
+      depends_on:
+        - reg
+      links:
+        - reg
+    reg:
+      image: registry
+      expose: 
+        - 5000

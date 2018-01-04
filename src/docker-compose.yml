@@ -5,16 +5,10 @@ services:
         build: 
             context: ./TodoAPI
             dockerfile: Dockerfile
-        image: test/todo:latest
-        ports: 
-            - "80:80"
-    u10first:
+        image: test/todo:latest        
+
+    todonginx:
         build:
-            context: ./ubuntu10
+            context: ./nginx
             dockerfile: Dockerfile
-        image: test/u10:latest
-    u10second:
-        build:
-            context: ./ubuntu10
-            dockerfile: Dockerfile
-        image: test/u10:latest
+        image: dnginx/withconf:latest            

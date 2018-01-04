@@ -11,7 +11,7 @@ RUN dotnet build -o /publish
 
 #expose 5000/tcp
 
-from microsoft/aspnetcore:2 
+FROM microsoft/aspnetcore:2 
 
 WORKDIR /publish
 

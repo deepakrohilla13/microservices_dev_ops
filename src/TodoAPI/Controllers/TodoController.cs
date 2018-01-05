@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.Models;
 using System.Linq;
+using System;
 
 namespace TodoApi.Controllers
 {
@@ -19,6 +20,19 @@ namespace TodoApi.Controllers
                 _context.TodoItems.Add(new TodoItem { Name = "Item1" });
                 _context.SaveChanges();
             }
+        }
+
+        [HttpGet]
+        public IActionResult Load()
+        {
+            var item = new TodoItem{
+                Id = new Random().Next(),
+                Name = Guid.NewGuid().ToString(),
+                IsComplete = true
+            };
+            _context.TodoItems.Add(item);
+            _context.SaveChanges();
+            return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
         }
 
         [HttpGet]

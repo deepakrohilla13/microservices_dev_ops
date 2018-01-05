@@ -7,9 +7,11 @@ COPY . .
 
 RUN dotnet restore
 
-RUN dotnet build -o /publish
+RUN dotnet publish -o /publish
 
-#expose 5000/tcp
+EXPOSE 5000/tcp
+
+EXPOSE 9898/tcp
 
 FROM microsoft/aspnetcore:2 
 

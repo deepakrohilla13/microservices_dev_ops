@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
+kind: Deployment
+metadata:
+  name: todo-deployment
+  labels:
+        app: todo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: todo
+    spec:
+      containers:
+      - image: deepakrohilla13/todo
+        name: todo-container        
+        ports:
+        - containerPort: 9898

@@ -15,6 +15,18 @@ namespace DigestCon
     {
         static void Main(string[] args)
         {
+            var services = new ServiceCollection();
+            services.AddTransient<Runner>();
+            services.AddSingleton<ILoggerFactory, LoggerFactory>();
+            services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
+            services.AddLogging((builder) => builder.SetMinimumLevel(LogLevel.Trace));
+            var serviceProvider = services.BuildServiceProvider();
+            var logFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+
+            logFactory.AddNLog(new NLogProviderOptions{CaptureMessageTemplates = true, CaptureMessageProperties = true});
+            logFactory.ConfigureNLog("nlog.config");
+
+
             
             var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())

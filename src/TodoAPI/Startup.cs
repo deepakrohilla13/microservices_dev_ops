@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
 using TodoApi;
 
+
+
 namespace TodoAPI
 {
     public class Startup
@@ -40,6 +42,8 @@ namespace TodoAPI
                 options.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
             services.AddTransient<INoteRepository, NoteRepository>();
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

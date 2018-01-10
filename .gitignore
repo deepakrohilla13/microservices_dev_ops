@@ -13,6 +13,9 @@
 *.userprefs
 .vscode/
 
+*.tfvars
+*.tfstate
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

@@ -9,6 +9,7 @@ spec:
   storageClassName: standard
   capacity:
     storage: 2Gi
+  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   hostPath:

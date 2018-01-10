@@ -6,6 +6,7 @@ metadata:
     type: local
 spec:
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: slow
   capacity:
     storage: 2Gi
   accessModes:

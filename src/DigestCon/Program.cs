@@ -9,28 +9,65 @@ using Microsoft.Extensions.Configuration.Json;
 using System.Configuration;
 using System.Threading;
 
+using Microsoft.Extensions.DependencyInjection;  
+using Microsoft.Extensions.Logging;
+using DigestCon.Logging;
+using StructureMap;
+using NLog.Extensions.Logging;
+
 namespace DigestCon
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var services = new ServiceCollection();
-            services.AddTransient<Runner>();
+            var services = new ServiceCollection()
+                                .AddLogging();
+
             services.AddSingleton<ILoggerFactory, LoggerFactory>();
             services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-            services.AddLogging((builder) => builder.SetMinimumLevel(LogLevel.Trace));
-            var serviceProvider = services.BuildServiceProvider();
-            var logFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
-
-            logFactory.AddNLog(new NLogProviderOptions{CaptureMessageTemplates = true, CaptureMessageProperties = true});
-            logFactory.ConfigureNLog("nlog.config");
+            services.AddTransient(typeof(IAppLogger<>), typeof(AppLogger<>));
 
 
+            services.AddLogging((lb) => lb.SetMinimumLevel(LogLevel.Trace));
+            
+            var container = new Container();
+            container.Configure(config =>
+            {
+                // Register stuff in container, using the StructureMap APIs...
+                config.Scan(_ =>
+                            {
+                                _.AssemblyContainingType(typeof(Program));
+                                _.WithDefaultConventions();
+                            });
+                // Populate the container using the service collection
+                config.Populate(services);
+            });
+
+           
+            var loggerFactory = container.GetInstance<ILoggerFactory>();
+            //var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+
+            //configure NLog
+            loggerFactory.AddNLog(new NLogProviderOptions { CaptureMessageTemplates = true, CaptureMessageProperties =true });
+            loggerFactory.ConfigureNLog("nlog.config"); 
+            /////////////////////////////////////////////           
+
+            var docFun = container.GetInstance<IDocBuilder>();
+            docFun.Try();
+
+
+
+
+
+
+            /////////////////////////////////////////////           
             
             var builder = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json");
+
+
             var Configuration = builder.Build();
             string myKey1 = Configuration["JobSettings:Job1"];
             Console.WriteLine(myKey1);

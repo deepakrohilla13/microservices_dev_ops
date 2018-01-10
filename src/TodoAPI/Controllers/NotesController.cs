@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 using TodoApi;
 using TodoApi.Models;
 
-namespace TodoAPI.ControllersP
+namespace TodoAPI.Controllers
 {
     [Route("api/Notes")]
     public class NotesController : Controller

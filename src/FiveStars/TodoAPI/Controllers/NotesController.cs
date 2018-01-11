@@ -24,6 +24,14 @@ namespace TodoAPI.Controllers
         {
             _noteRepository = noteRepository;
             _alertService = alertService;
+            _alertService.SendEmailAlert("sdf","sdfsf");
+        }
+
+        [HttpGet("/t/g")]
+        public string Test()
+        {
+            _alertService.SendEmailAlert("sdfs","sdfs");
+            return  "Tested";
         }
 
         // GET: notes/notes

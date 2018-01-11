@@ -1,5 +1,5 @@
-variable "ami_with_docker_rancher" { 
-    description = "ami having docker and rancher pre installed"
+variable "ami_for_docker_rancher" { 
+    description = "ami for docker and rancher to be installed"
 }
  
 variable "esb_5gb_volume" { 
@@ -16,4 +16,16 @@ variable "microuser_secret_key" {
 
 variable "aws_region" {
     description = "region name for MSA setup"
+}
+
+variable "microuser_availability_zone1" { 
+    description = "Default availablity zone for us-virginia zone us-east-1"
+}
+
+variable "microuser_key_name" { 
+    description = "Default keyname for the user"
+}
+
+variable "microuser_availability_zone2" { 
+    description = "Second availablity zone within reson us-east-1"
 }

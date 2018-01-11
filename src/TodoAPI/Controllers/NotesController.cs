@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TodoApi;
 using TodoApi.Models;
+using TodoAPI.BusinessModels;
 
 namespace TodoAPI.Controllers
 {
@@ -17,9 +18,12 @@ namespace TodoAPI.Controllers
             
         }*/
 
-        public NotesController(INoteRepository noteRepository)
+        private readonly IAlertService _alertService ;
+
+        public NotesController(INoteRepository noteRepository, IAlertService alertService)
         {
             _noteRepository = noteRepository;
+            _alertService = alertService;
         }
 
         // GET: notes/notes

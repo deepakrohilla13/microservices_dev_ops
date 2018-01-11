@@ -1,0 +1,3 @@
+PrivIP 10.0.171.65  
+PubIP 54.91.106.234  
+PubDNS ec2-54-91-106-234.compute-1.amazonaws.com 

@@ -2,7 +2,8 @@
 
 namespace TodoAPI.Test
 {
-    public class Class1
+    public class GlobalTest
     {
+        
     }
 }

@@ -6,6 +6,10 @@ variable "esb_5gb_volume" {
     description = "Shared volume for containers on every host"
 }
 
+variable "machine_size" { 
+    description = "Size of aws machine"
+}
+
 variable "microuser_access_key" {
     description = "for access key"
 }

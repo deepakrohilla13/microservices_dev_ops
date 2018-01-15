@@ -1,0 +1,24 @@
+rsvr ansible_ssh_host=54.242.91.200 ansible_ssh_user=ubuntu  ansible_ssh_private_key_file=k8vir.pem
+
+rnod01 ansible_ssh_host=34.201.216.99 ansible_ssh_user=ubuntu ansible_ssh_private_key_file=k8vir.pem
+
+[rancherserver]
+
+rsvr
+
+
+[ranchernodes]
+
+rnod01
+
+
+[datacenter:children]
+
+rancherserver
+
+ranchernodes
+
+
+[datacenter:vars]
+
+ansible_ssh_user=ubuntu

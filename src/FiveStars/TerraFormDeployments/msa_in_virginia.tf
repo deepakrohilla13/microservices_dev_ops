@@ -138,8 +138,7 @@ resource "aws_default_security_group" "default_SG" {
         protocol        = "-1"
         cidr_blocks     = ["0.0.0.0/0"]
     }
-
-
+    
     egress {
         from_port       = 0
         to_port         = 0
@@ -158,7 +157,7 @@ resource "aws_instance" "ec2_rancher_server" {
     ami                         = "${var.ami_for_docker_rancher}"
     availability_zone           = "${var.microuser_availability_zone1}"
     ebs_optimized               = false
-    instance_type               = "t2.micro"
+    instance_type               = "${var.machine_size}"
     monitoring                  = false
     key_name                    = "${var.microuser_key_name}"
     subnet_id                   = "${aws_subnet.subnet-a34c1dc7-subnet-public-1a.id}"   
@@ -177,7 +176,7 @@ resource "aws_instance" "ec2_rancher_server" {
     }
 
    provisioner "local-exec" {
-       command = "echo PrivIP ${aws_instance.ec2_rancher_server.private_ip} >> ec2_rancher_server.txt && echo PubIP ${aws_instance.ec2_rancher_server.public_ip} >> ec2_rancher_server.txt && echo PubDNS ${aws_instance.ec2_rancher_server.public_dns} >> ec2_rancher_server.txt"
+       command = "echo PrivIP ${aws_instance.ec2_rancher_server.private_ip} >> ec2_rancher_server.txt && echo PubIP ${aws_instance.ec2_rancher_server.public_ip} >> ec2_rancher_server.txt && echo PubDNS ${aws_instance.ec2_rancher_server.public_dns} >> ec2_rancher_server.txt && echo PrivIP ${aws_instance.ec2_rancher_server.private_ip} && echo PubIP ${aws_instance.ec2_rancher_server.public_ip} && echo PubDNS ${aws_instance.ec2_rancher_server.public_dns} "
    }
 }
 
@@ -185,7 +184,7 @@ resource "aws_instance" "ec2_rancher_node" {
     ami                         = "${var.ami_for_docker_rancher}"
     availability_zone           = "${var.microuser_availability_zone1}"
     ebs_optimized               = false
-    instance_type               = "t2.micro"
+    instance_type               = "${var.machine_size}"
     monitoring                  = false
     key_name                    = "${var.microuser_key_name}"
     subnet_id                   = "${aws_subnet.subnet-a34c1dc7-subnet-public-1a.id}"   

@@ -1,0 +1,22 @@
+---
+- hosts: datacenter
+  become_method: sudo
+  remote_user: root
+
+  tasks:
+
+  - name: Install docker.io
+    become: yes
+    apt:
+      name: docker.io
+      state: present
+
+- hosts: rancherserver
+  become_method: sudo
+  remote_user: root
+
+  tasks:
+
+  - name: Run Rancher with docker
+    become: yes
+    command: docker run -d --restart=unless-stopped -p 8080:8080 rancher/server  

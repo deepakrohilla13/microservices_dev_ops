@@ -1,0 +1,71 @@
+vagrant ssh host-01 -- -A
+
+vagrant status
+
+/etc/systemd/system #all unit files
+
+sudo systemctl enable /etc/systemd/system/hello.service
+
+sudo systemctl start hello.service
+
+sudo systemctl list-units
+
+sudo systemctl list-units hello.service
+
+sudo systemctl status hello.service
+
+ps -p 1111 # process id details
+
+journalctl -u hello.service
+
+journalctl -f -u hello.service
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart hello.service
+
+journalctl -f -u hello.service
+
+etcdctl set /message Hello
+
+etcdctl get /message
+
+etcdctl rm /message
+
+etcdctl mkdir /directory-name-for-child-keys
+
+etcdctl set /directory-name-for-child-keys child-key-name child-key-value
+
+etcdctl ls
+
+etcdctl ls /directory-name-for-child-keys
+
+etcdctl watch --recursive /directory-name-for-child-keys
+
+fleetctl list-machines
+
+fleetctl list-units
+
+fleetctl submit hello.service
+
+fleetctl list-unit-files
+
+fleetctl cat hello.service
+
+fleetctl load hello.service
+
+fleetctl start hello.service
+
+fleetctl status hello.service
+
+fleetctl journal -f hello.service #-f for follow
+
+fleetctl destroy hello.service
+
+fleetctl --tunnel host:2222 list-machines
+
+export FLEETCTL_TUNNEL="HOST:2222"
+
+fleetctl ssh hello.service # ssh into machine hosting hello service
+
+
